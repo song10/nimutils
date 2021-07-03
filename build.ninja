@@ -1,0 +1,18 @@
+rule nimc
+  command = nim c -o:$out $in
+
+rule nimr
+  command = nim c -r -o:$out $in
+
+rule nimble_test
+  command = nimble test
+
+rule nimpretty
+  command = find . -name '*.nim' -exec nimpretty {} \;
+
+build bin/nu: nimc src/nimutils.nim
+build nu: phony bin/nu
+build test: nimble_test
+build pretty: nimpretty
+
+default nu
