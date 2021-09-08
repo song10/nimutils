@@ -10,7 +10,11 @@ rule nimble_test
 rule nimpretty
   command = find . -name '*.nim' -exec nimpretty {} \;
 
-build bin/nu: nimc src/nimutils.nim | src/nimutilspkg/lib/path.nim src/nimutilspkg/lib/hosts.nim
+build bin/nu: nimc src/nimutils.nim | $
+                      src/nimutilspkg/lib/path.nim $
+                      src/nimutilspkg/lib/hosts.nim $
+                      src/nimutilspkg/lib/xcd.nim $
+
 build nu: phony bin/nu
 build test: nimble_test
 build pretty: nimpretty
