@@ -1,5 +1,5 @@
 rule nimc
-  command = nim c -o:$out $in
+  command = nimpretty $in && nim c -o:$out $in
 
 rule nimr
   command = nim c -r -o:$out $in
@@ -8,15 +8,29 @@ rule nimble_test
   command = nimble test
 
 rule nimpretty
-  command = find . -name '*.nim' -exec nimpretty {} \;
+  command = nimpretty $in
+  # command = find . -name '*.nim' -exec nimpretty {} \;
+
+rule do
+  command = :
+
+rule update_all
+  command = nim e update_all.nims
+
+build update: update_all
 
 build bin/nu: nimc src/nimutils.nim | $
                       src/nimutilspkg/lib/path.nim $
                       src/nimutilspkg/lib/hosts.nim $
                       src/nimutilspkg/lib/xcd.nim $
 
+build bin/vii: nimc src/nimutilspkg/vii.nim
+
 build nu: phony bin/nu
+build vii: phony bin/vii
+
 build test: nimble_test
 build pretty: nimpretty
 
-default nu
+build all: do | nu vii
+default all
