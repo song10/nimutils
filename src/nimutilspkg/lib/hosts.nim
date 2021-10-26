@@ -36,4 +36,4 @@ proc execute*(args: Table[system.string, docopt.Value]) =
 {sub}.73  hostpc
 {sub}.108 winvb
 {sub}.1   manvb
-"""    
+"""

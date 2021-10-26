@@ -1,2 +1,2 @@
 # nimutils
-utility with nim
+Misc. utilities written with nim.
